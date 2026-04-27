@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ασκήσεις Πολυπλοκότητας Αλγορίθμων</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      color: #1e293b;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+
+    .app-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.15);
+      overflow: hidden;
+    }
+
+    header {
+      background: #1e3a8a;
+      color: white;
+      padding: 28px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 15px;
+      color: #dbeafe;
+      line-height: 1.5;
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .top-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .category-box {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .category-btn,
+    .next-btn,
+    .reset-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .category-btn {
+      background: #e0e7ff;
+      color: #1e3a8a;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: #1e3a8a;
+      color: white;
+    }
+
+    .score-box {
+      background: #f1f5f9;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    .exercise-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 25px;
+      background: #f8fafc;
+    }
+
+    .exercise-type {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .question {
+      font-size: 21px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 15px 0 20px;
+      font-family: Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .answer-btn {
+      border: 2px solid #cbd5e1;
+      background: white;
+      padding: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s ease;
+      text-align: left;
+    }
+
+    .answer-btn:hover:not(:disabled) {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .answer-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #166534;
+      font-weight: bold;
+    }
+
+    .answer-btn.wrong {
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #991b1b;
+      font-weight: bold;
+    }
+
+    .answer-btn:disabled {
+      cursor: not-allowed;
+    }
+
+    .feedback {
+      display: none;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .feedback.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .next-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .next-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .reset-btn {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .reset-btn:hover {
+      background: #cbd5e1;
+    }
+
+    .help-section {
+      margin-top: 25px;
+      padding: 20px;
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 14px;
+      line-height: 1.6;
+    }
+
+    .help-section h2 {
+      font-size: 19px;
+      margin-bottom: 10px;
+      color: #854d0e;
+    }
+
+    .help-section ul {
+      padding-left: 22px;
+    }
+
+    @media (max-width: 650px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .answers {
+        grid-template-columns: 1fr;
+      }
+
+      .question {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>Ασκήσεις Πολυπλοκότητας Αλγορίθμων</h1>
+      <p>
+        Εξάσκηση στην αναγνώριση Big-O πολυπλοκότητας και στον εντοπισμό κυρίαρχου όρου.
+      </p>
+    </header>
+
+    <main>
+      <section class="top-panel">
+        <div class="category-box">
+          <button class="category-btn active" data-category="all">Όλες οι ασκήσεις</button>
+          <button class="category-btn" data-category="complexity">Αναγνώριση πολυπλοκότητας</button>
+          <button class="category-btn" data-category="dominant">Κυρίαρχος όρος</button>
+        </div>
+
+        <div class="score-box">
+          Σκορ: <span id="score">0</span> / <span id="total">0</span>
+        </div>
+      </section>
+
+      <section class="exercise-card">
+        <span id="exerciseType" class="exercise-type"></span>
+
+        <div id="question" class="question"></div>
+        <pre id="codeBlock" class="code-block" style="display: none;"></pre>
+
+        <div id="answers" class="answers"></div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <div class="controls">
+          <button id="nextBtn" class="next-btn">Επόμενη άσκηση</button>
+          <button id="resetBtn" class="reset-btn">Μηδενισμός σκορ</button>
+        </div>
+      </section>
+
+      <section class="help-section">
+        <h2>Σύντομη υπενθύμιση</h2>
+        <ul>
+          <li><strong>O(1):</strong> σταθερός χρόνος, δεν εξαρτάται από το n.</li>
+          <li><strong>O(log n):</strong> συνήθως εμφανίζεται όταν το πρόβλημα διαιρείται επαναληπτικά, π.χ. δυαδική αναζήτηση.</li>
+          <li><strong>O(n):</strong> μία απλή διάσχιση όλων των στοιχείων.</li>
+          <li><strong>O(n log n):</strong> συχνό σε αποδοτικούς αλγορίθμους ταξινόμησης.</li>
+          <li><strong>O(n²):</strong> συχνό σε δύο εμφωλευμένους βρόχους.</li>
+          <li><strong>Κυρίαρχος όρος:</strong> κρατάμε τον όρο που αυξάνεται ταχύτερα και αγνοούμε σταθερές και μικρότερους όρους.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const exercises = [
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω τμήματος κώδικα;",
+        code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}`,
+        options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+        answer: "O(n)",
+        explanation: "Ο βρόχος εκτελείται n φορές, άρα η πολυπλοκότητα είναι γραμμική: O(n)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω τμήματος κώδικα;",
+        code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < n; j++) {\n    console.log(i, j);\n  }\n}`,
+        options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+        answer: "O(n²)",
+        explanation: "Ο εξωτερικός βρόχος εκτελείται n φορές και για κάθε επανάληψη ο εσωτερικός επίσης n φορές. Άρα συνολικά n · n = n²."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η χρονική πολυπλοκότητα της δυαδικής αναζήτησης σε ταξινομημένο πίνακα;",
+        code: "",
+        options: ["O(n)", "O(n²)", "O(log n)", "O(n log n)"],
+        answer: "O(log n)",
+        explanation: "Σε κάθε βήμα η δυαδική αναζήτηση απορρίπτει περίπου το μισό του πίνακα. Επομένως έχει πολυπλοκότητα O(log n)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `let x = array[0];\nconsole.log(x);`,
+        options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+        answer: "O(1)",
+        explanation: "Η πρόσβαση σε ένα συγκεκριμένο στοιχείο πίνακα γίνεται σε σταθερό χρόνο. Δεν εξαρτάται από το n."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα ενός αλγορίθμου merge sort στη μέση και χειρότερη περίπτωση;",
+        code: "",
+        options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+        answer: "O(n log n)",
+        explanation: "Το merge sort χωρίζει το πρόβλημα λογαριθμικά και σε κάθε επίπεδο κάνει γραμμική συγχώνευση. Άρα O(n log n)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `for (let i = 1; i < n; i *= 2) {\n  console.log(i);\n}`,
+        options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+        answer: "O(log n)",
+        explanation: "Το i διπλασιάζεται σε κάθε επανάληψη. Χρειάζονται περίπου log₂(n) βήματα μέχρι να φτάσει το n."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}\n\nfor (let j = 0; j < n; j++) {\n  console.log(j);\n}`,
+        options: ["O(2n)", "O(n)", "O(n²)", "O(log n)"],
+        answer: "O(n)",
+        explanation: "Οι δύο ανεξάρτητοι βρόχοι εκτελούνται συνολικά 2n φορές, αλλά στη Big-O αγνοούμε σταθερούς συντελεστές. Άρα O(n)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < 10; j++) {\n    console.log(i, j);\n  }\n}`,
+        options: ["O(10n)", "O(n)", "O(n²)", "O(log n)"],
+        answer: "O(n)",
+        explanation: "Ο εσωτερικός βρόχος εκτελείται πάντα 10 φορές, δηλαδή σταθερό πλήθος. Συνολικά έχουμε 10n, που απλοποιείται σε O(n)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < n; j++) {\n    for (let k = 0; k < n; k++) {\n      console.log(i, j, k);\n    }\n  }\n}`,
+        options: ["O(n)", "O(n²)", "O(n³)", "O(log n)"],
+        answer: "O(n³)",
+        explanation: "Υπάρχουν τρεις εμφωλευμένοι βρόχοι, καθένας με n επαναλήψεις. Άρα n · n · n = n³."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα ενός απλού γραμμικού search σε μη ταξινομημένο πίνακα;",
+        code: "",
+        options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+        answer: "O(n)",
+        explanation: "Στη χειρότερη περίπτωση πρέπει να ελεγχθούν όλα τα στοιχεία του πίνακα. Άρα O(n)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}\n\nfor (let j = 0; j < n; j++) {\n  for (let k = 0; k < n; k++) {\n    console.log(j, k);\n  }\n}`,
+        options: ["O(n)", "O(n²)", "O(n + log n)", "O(1)"],
+        answer: "O(n²)",
+        explanation: "Ο πρώτος βρόχος είναι O(n), ενώ οι εμφωλευμένοι βρόχοι είναι O(n²). Κυριαρχεί το n², άρα O(n²)."
+      },
+      {
+        category: "complexity",
+        typeLabel: "Αναγνώριση πολυπλοκότητας",
+        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+        code: `for (let i = n; i > 1; i = Math.floor(i / 2)) {\n  console.log(i);\n}`,
+        options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+        answer: "O(log n)",
+        explanation: "Το i υποδιαιρείται δια 2 σε κάθε επανάληψη. Άρα ο αριθμός των επαναλήψεων είναι λογαριθμικός."
+      },
+
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 3n² + 10n + 5;",
+        code: "",
+        options: ["5", "10n", "3n²", "n"],
+        answer: "3n²",
+        explanation: "Ο όρος n² αυξάνεται ταχύτερα από το n και τις σταθερές. Άρα ο κυρίαρχος όρος είναι 3n² και η Big-O μορφή είναι O(n²)."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: n log n + 50n + 1000;",
+        code: "",
+        options: ["1000", "50n", "n log n", "log n"],
+        answer: "n log n",
+        explanation: "Το n log n αυξάνεται ταχύτερα από το n και από σταθερούς όρους. Άρα κυριαρχεί."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 7n³ + 2n² + 100n;",
+        code: "",
+        options: ["100n", "2n²", "7n³", "n"],
+        answer: "7n³",
+        explanation: "Ο όρος n³ αυξάνεται ταχύτερα από n² και n. Επομένως κυριαρχεί το 7n³."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 200 + 4log n + n;",
+        code: "",
+        options: ["200", "4log n", "n", "log n"],
+        answer: "n",
+        explanation: "Ο γραμμικός όρος n αυξάνεται ταχύτερα από τον λογαριθμικό όρο log n και από τη σταθερά 200."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 5n² + n log n + 100n;",
+        code: "",
+        options: ["n log n", "100n", "5n²", "n"],
+        answer: "5n²",
+        explanation: "Το n² αυξάνεται ταχύτερα από το n log n και το n. Άρα κυριαρχεί το 5n²."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 2ⁿ + n³ + 1000n;",
+        code: "",
+        options: ["n³", "1000n", "2ⁿ", "n"],
+        answer: "2ⁿ",
+        explanation: "Η εκθετική συνάρτηση 2ⁿ αυξάνεται ταχύτερα από κάθε πολυωνυμικό όρο όπως n³ ή n."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 8n + 3log n + 900;",
+        code: "",
+        options: ["900", "3log n", "8n", "log n"],
+        answer: "8n",
+        explanation: "Ο γραμμικός όρος n μεγαλώνει ταχύτερα από log n και από σταθερούς όρους."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: n⁴ + 20n² + 300n log n;",
+        code: "",
+        options: ["n⁴", "20n²", "300n log n", "n log n"],
+        answer: "n⁴",
+        explanation: "Το n⁴ αυξάνεται ταχύτερα από n² και n log n. Άρα είναι ο κυρίαρχος όρος."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 6log n + 12;",
+        code: "",
+        options: ["12", "6log n", "n", "n²"],
+        answer: "6log n",
+        explanation: "Μεταξύ log n και σταθεράς, ο λογαριθμικός όρος αυξάνεται όσο μεγαλώνει το n. Άρα κυριαρχεί το 6log n."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 4n² log n + 100n² + 2n;",
+        code: "",
+        options: ["2n", "100n²", "4n² log n", "n"],
+        answer: "4n² log n",
+        explanation: "Το n² log n αυξάνεται ταχύτερα από το n², επειδή υπάρχει επιπλέον παράγοντας log n."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποια είναι η Big-O μορφή της έκφρασης: 12n² + 3n + 500;",
+        code: "",
+        options: ["O(1)", "O(n)", "O(n²)", "O(n³)"],
+        answer: "O(n²)",
+        explanation: "Ο κυρίαρχος όρος είναι το n². Στη Big-O αγνοούμε τον συντελεστή 12, άρα η μορφή είναι O(n²)."
+      },
+      {
+        category: "dominant",
+        typeLabel: "Κυρίαρχος όρος",
+        question: "Ποια είναι η Big-O μορφή της έκφρασης: 9n log n + 80n + 4;",
+        code: "",
+        options: ["O(n)", "O(log n)", "O(n log n)", "O(n²)"],
+        answer: "O(n log n)",
+        explanation: "Το n log n είναι ο κυρίαρχος όρος. Ο συντελεστής 9 αγνοείται στη Big-O."
+      }
+    ];
+
+    let currentCategory = "all";
+    let currentExercise = null;
+    let score = 0;
+    let totalAnswered = 0;
+    let answered = false;
+
+    const exerciseType = document.getElementById("exerciseType");
+    const question = document.getElementById("question");
+    const codeBlock = document.getElementById("codeBlock");
+    const answers = document.getElementById("answers");
+    const feedback = document.getElementById("feedback");
+    const scoreSpan = document.getElementById("score");
+    const totalSpan = document.getElementById("total");
+    const nextBtn = document.getElementById("nextBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const categoryButtons = document.querySelectorAll(".category-btn");
+
+    function getFilteredExercises() {
+      if (currentCategory === "all") {
+        return exercises;
+      }
+
+      return exercises.filter(exercise => exercise.category === currentCategory);
+    }
+
+    function shuffleArray(array) {
+      return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function loadRandomExercise() {
+      const filteredExercises = getFilteredExercises();
+      const randomIndex = Math.floor(Math.random() * filteredExercises.length);
+
+      currentExercise = filteredExercises[randomIndex];
+      answered = false;
+
+      exerciseType.textContent = currentExercise.typeLabel;
+      question.textContent = currentExercise.question;
+
+      if (currentExercise.code.trim() !== "") {
+        codeBlock.style.display = "block";
+        codeBlock.textContent = currentExercise.code;
+      } else {
+        codeBlock.style.display = "none";
+        codeBlock.textContent = "";
+      }
+
+      feedback.className = "feedback";
+      feedback.textContent = "";
+      answers.innerHTML = "";
+
+      const shuffledOptions = shuffleArray(currentExercise.options);
+
+      shuffledOptions.forEach(option => {
+        const button = document.createElement("button");
+        button.className = "answer-btn";
+        button.textContent = option;
+        button.addEventListener("click", () => checkAnswer(button, option));
+        answers.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selectedButton, selectedOption) {
+      if (answered) return;
+
+      answered = true;
+      totalAnswered++;
+
+      const allAnswerButtons = document.querySelectorAll(".answer-btn");
+
+      allAnswerButtons.forEach(button => {
+        button.disabled = true;
+
+        if (button.textContent === currentExercise.answer) {
+          button.classList.add("correct");
+        }
+      });
+
+      if (selectedOption === currentExercise.answer) {
+        score++;
+        feedback.className = "feedback success show";
+        feedback.innerHTML = `<strong>Σωστό.</strong> ${currentExercise.explanation}`;
+      } else {
+        selectedButton.classList.add("wrong");
+        feedback.className = "feedback error show";
+        feedback.innerHTML = `<strong>Λάθος.</strong> Η σωστή απάντηση είναι <strong>${currentExercise.answer}</strong>. ${currentExercise.explanation}`;
+      }
+
+      updateScore();
+    }
+
+    function updateScore() {
+      scoreSpan.textContent = score;
+      totalSpan.textContent = totalAnswered;
+    }
+
+    categoryButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        categoryButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        currentCategory = button.dataset.category;
+        loadRandomExercise();
+      });
+    });
+
+    nextBtn.addEventListener("click", loadRandomExercise);
+
+    resetBtn.addEventListener("click", () => {
+      score = 0;
+      totalAnswered = 0;
+      updateScore();
+      loadRandomExercise();
+    });
+
+    loadRandomExercise();
+  </script>
+</body>
+</html>
