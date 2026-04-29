@@ -403,114 +403,96 @@
     explanation: "Το i υποδιαιρείται δια 2 σε κάθε επανάληψη. Άρα ο αριθμός των επαναλήψεων είναι λογαριθμικός."
   },
 
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 3n² + 10n + 5;",
-        code: "",
-        options: ["5", "10n", "3n²", "n"],
-        answer: "3n²",
-        explanation: "Ο όρος n² αυξάνεται ταχύτερα από το n και τις σταθερές. Άρα ο κυρίαρχος όρος είναι 3n² και η Big-O μορφή είναι O(n²)."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: n log n + 50n + 1000;",
-        code: "",
-        options: ["1000", "50n", "n log n", "log n"],
-        answer: "n log n",
-        explanation: "Το n log n αυξάνεται ταχύτερα από το n και από σταθερούς όρους. Άρα κυριαρχεί."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 7n³ + 2n² + 100n;",
-        code: "",
-        options: ["100n", "2n²", "7n³", "n"],
-        answer: "7n³",
-        explanation: "Ο όρος n³ αυξάνεται ταχύτερα από n² και n. Επομένως κυριαρχεί το 7n³."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 200 + 4log n + n;",
-        code: "",
-        options: ["200", "4log n", "n", "log n"],
-        answer: "n",
-        explanation: "Ο γραμμικός όρος n αυξάνεται ταχύτερα από τον λογαριθμικό όρο log n και από τη σταθερά 200."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 5n² + n log n + 100n;",
-        code: "",
-        options: ["n log n", "100n", "5n²", "n"],
-        answer: "5n²",
-        explanation: "Το n² αυξάνεται ταχύτερα από το n log n και το n. Άρα κυριαρχεί το 5n²."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 2ⁿ + n³ + 1000n;",
-        code: "",
-        options: ["n³", "1000n", "2ⁿ", "n"],
-        answer: "2ⁿ",
-        explanation: "Η εκθετική συνάρτηση 2ⁿ αυξάνεται ταχύτερα από κάθε πολυωνυμικό όρο όπως n³ ή n."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 8n + 3log n + 900;",
-        code: "",
-        options: ["900", "3log n", "8n", "log n"],
-        answer: "8n",
-        explanation: "Ο γραμμικός όρος n μεγαλώνει ταχύτερα από log n και από σταθερούς όρους."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: n⁴ + 20n² + 300n log n;",
-        code: "",
-        options: ["n⁴", "20n²", "300n log n", "n log n"],
-        answer: "n⁴",
-        explanation: "Το n⁴ αυξάνεται ταχύτερα από n² και n log n. Άρα είναι ο κυρίαρχος όρος."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 6log n + 12;",
-        code: "",
-        options: ["12", "6log n", "n", "n²"],
-        answer: "6log n",
-        explanation: "Μεταξύ log n και σταθεράς, ο λογαριθμικός όρος αυξάνεται όσο μεγαλώνει το n. Άρα κυριαρχεί το 6log n."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 4n² log n + 100n² + 2n;",
-        code: "",
-        options: ["2n", "100n²", "4n² log n", "n"],
-        answer: "4n² log n",
-        explanation: "Το n² log n αυξάνεται ταχύτερα από το n², επειδή υπάρχει επιπλέον παράγοντας log n."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποια είναι η Big-O μορφή της έκφρασης: 12n² + 3n + 500;",
-        code: "",
-        options: ["O(1)", "O(n)", "O(n²)", "O(n³)"],
-        answer: "O(n²)",
-        explanation: "Ο κυρίαρχος όρος είναι το n². Στη Big-O αγνοούμε τον συντελεστή 12, άρα η μορφή είναι O(n²)."
-      },
-      {
-        category: "dominant",
-        typeLabel: "Κυρίαρχος όρος",
-        question: "Ποια είναι η Big-O μορφή της έκφρασης: 9n log n + 80n + 4;",
-        code: "",
-        options: ["O(n)", "O(log n)", "O(n log n)", "O(n²)"],
-        answer: "O(n log n)",
-        explanation: "Το n log n είναι ο κυρίαρχος όρος. Ο συντελεστής 9 αγνοείται στη Big-O."
-      }
+     {
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 3n² + 10n + 5;",
+  code: "",
+  options: ["5", "10n", "3n²", "n"],
+  answer: "3n²",
+  explanation: "Ο όρος n² αυξάνεται ταχύτερα από το n και τις σταθερές. Άρα κυρίαρχος όρος είναι το 3n² και η Big-O μορφή είναι O(n²)."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: n² + n;",
+  code: "",
+  options: ["n²", "n", "1", "log n"],
+  answer: "n²",
+  explanation: "Ο όρος n² μεγαλώνει πιο γρήγορα από τον όρο n. Άρα κυρίαρχος όρος είναι το n²."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 5n² + 3n + 10;",
+  code: "",
+  options: ["5n²", "3n", "10", "n"],
+  answer: "5n²",
+  explanation: "Ο όρος n² μεγαλώνει πιο γρήγορα από το n και τη σταθερά. Άρα κυριαρχεί το 5n² και η Big-O μορφή είναι O(n²)."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 200 + 4log n + n;",
+  code: "",
+  options: ["200", "4log n", "n", "log n"],
+  answer: "n",
+  explanation: "Ο γραμμικός όρος n αυξάνεται ταχύτερα από τον λογαριθμικό όρο log n και από τη σταθερά 200."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 8n + 3log n + 900;",
+  code: "",
+  options: ["900", "3log n", "8n", "log n"],
+  answer: "8n",
+  explanation: "Ο όρος n μεγαλώνει πιο γρήγορα από το log n και από τις σταθερές. Άρα κυρίαρχος όρος είναι το 8n."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποιος είναι ο κυρίαρχος όρος στην έκφραση: 6log n + 12;",
+  code: "",
+  options: ["12", "6log n", "n", "n²"],
+  answer: "6log n",
+  explanation: "Το log n μεγαλώνει όσο αυξάνεται το n, ενώ το 12 είναι σταθερά. Άρα κυριαρχεί το 6log n."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποια είναι η Big-O μορφή της έκφρασης: 12n² + 3n + 500;",
+  code: "",
+  options: ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+  answer: "O(n²)",
+  explanation: "Ο κυρίαρχος όρος είναι το n². Στη Big-O αγνοούμε τον συντελεστή 12 και τους μικρότερους όρους."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποια είναι η Big-O μορφή της έκφρασης: 50n + 100;",
+  code: "",
+  options: ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+  answer: "O(n)",
+  explanation: "Ο κυρίαρχος όρος είναι το n. Στη Big-O αγνοούμε τον συντελεστή 50 και τη σταθερά 100."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποια είναι η Big-O μορφή της έκφρασης: 7log n + 20;",
+  code: "",
+  options: ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+  answer: "O(log n)",
+  explanation: "Ο λογαριθμικός όρος log n μεγαλώνει περισσότερο από τη σταθερά 20. Άρα η Big-O μορφή είναι O(log n)."
+},
+{
+  category: "dominant",
+  typeLabel: "Κυρίαρχος όρος",
+  question: "Ποια είναι η Big-O μορφή της έκφρασης: 30;",
+  code: "",
+  options: ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+  answer: "O(1)",
+  explanation: "Η έκφραση είναι σταθερή και δεν εξαρτάται από το n. Άρα η πολυπλοκότητα είναι O(1)."
+}
     ];
 
     let currentCategory = "all";
