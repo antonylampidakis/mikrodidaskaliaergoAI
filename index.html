@@ -312,114 +312,96 @@
 
   <script>
     const exercises = [
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω τμήματος κώδικα;",
-        code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}`,
-        options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
-        answer: "O(n)",
-        explanation: "Ο βρόχος εκτελείται n φορές, άρα η πολυπλοκότητα είναι γραμμική: O(n)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω τμήματος κώδικα;",
-        code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < n; j++) {\n    console.log(i, j);\n  }\n}`,
-        options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
-        answer: "O(n²)",
-        explanation: "Ο εξωτερικός βρόχος εκτελείται n φορές και για κάθε επανάληψη ο εσωτερικός επίσης n φορές. Άρα συνολικά n · n = n²."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η χρονική πολυπλοκότητα της δυαδικής αναζήτησης σε ταξινομημένο πίνακα;",
-        code: "",
-        options: ["O(n)", "O(n²)", "O(log n)", "O(n log n)"],
-        answer: "O(log n)",
-        explanation: "Σε κάθε βήμα η δυαδική αναζήτηση απορρίπτει περίπου το μισό του πίνακα. Επομένως έχει πολυπλοκότητα O(log n)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `let x = array[0];\nconsole.log(x);`,
-        options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
-        answer: "O(1)",
-        explanation: "Η πρόσβαση σε ένα συγκεκριμένο στοιχείο πίνακα γίνεται σε σταθερό χρόνο. Δεν εξαρτάται από το n."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα ενός αλγορίθμου merge sort στη μέση και χειρότερη περίπτωση;",
-        code: "",
-        options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
-        answer: "O(n log n)",
-        explanation: "Το merge sort χωρίζει το πρόβλημα λογαριθμικά και σε κάθε επίπεδο κάνει γραμμική συγχώνευση. Άρα O(n log n)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `for (let i = 1; i < n; i *= 2) {\n  console.log(i);\n}`,
-        options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
-        answer: "O(log n)",
-        explanation: "Το i διπλασιάζεται σε κάθε επανάληψη. Χρειάζονται περίπου log₂(n) βήματα μέχρι να φτάσει το n."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}\n\nfor (let j = 0; j < n; j++) {\n  console.log(j);\n}`,
-        options: ["O(2n)", "O(n)", "O(n²)", "O(log n)"],
-        answer: "O(n)",
-        explanation: "Οι δύο ανεξάρτητοι βρόχοι εκτελούνται συνολικά 2n φορές, αλλά στη Big-O αγνοούμε σταθερούς συντελεστές. Άρα O(n)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < 10; j++) {\n    console.log(i, j);\n  }\n}`,
-        options: ["O(10n)", "O(n)", "O(n²)", "O(log n)"],
-        answer: "O(n)",
-        explanation: "Ο εσωτερικός βρόχος εκτελείται πάντα 10 φορές, δηλαδή σταθερό πλήθος. Συνολικά έχουμε 10n, που απλοποιείται σε O(n)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < n; j++) {\n    for (let k = 0; k < n; k++) {\n      console.log(i, j, k);\n    }\n  }\n}`,
-        options: ["O(n)", "O(n²)", "O(n³)", "O(log n)"],
-        answer: "O(n³)",
-        explanation: "Υπάρχουν τρεις εμφωλευμένοι βρόχοι, καθένας με n επαναλήψεις. Άρα n · n · n = n³."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα ενός απλού γραμμικού search σε μη ταξινομημένο πίνακα;",
-        code: "",
-        options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-        answer: "O(n)",
-        explanation: "Στη χειρότερη περίπτωση πρέπει να ελεγχθούν όλα τα στοιχεία του πίνακα. Άρα O(n)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}\n\nfor (let j = 0; j < n; j++) {\n  for (let k = 0; k < n; k++) {\n    console.log(j, k);\n  }\n}`,
-        options: ["O(n)", "O(n²)", "O(n + log n)", "O(1)"],
-        answer: "O(n²)",
-        explanation: "Ο πρώτος βρόχος είναι O(n), ενώ οι εμφωλευμένοι βρόχοι είναι O(n²). Κυριαρχεί το n², άρα O(n²)."
-      },
-      {
-        category: "complexity",
-        typeLabel: "Αναγνώριση πολυπλοκότητας",
-        question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
-        code: `for (let i = n; i > 1; i = Math.floor(i / 2)) {\n  console.log(i);\n}`,
-        options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
-        answer: "O(log n)",
-        explanation: "Το i υποδιαιρείται δια 2 σε κάθε επανάληψη. Άρα ο αριθμός των επαναλήψεων είναι λογαριθμικός."
-      },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω τμήματος κώδικα;",
+    code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}`,
+    options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+    answer: "O(n)",
+    explanation: "Ο βρόχος εκτελείται n φορές, άρα η πολυπλοκότητα είναι γραμμική: O(n)."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω τμήματος κώδικα;",
+    code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < n; j++) {\n    console.log(i, j);\n  }\n}`,
+    options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+    answer: "O(n²)",
+    explanation: "Ο εξωτερικός βρόχος εκτελείται n φορές και για κάθε επανάληψη ο εσωτερικός επίσης n φορές. Άρα συνολικά n · n = n²."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η χρονική πολυπλοκότητα της δυαδικής αναζήτησης σε ταξινομημένο πίνακα;",
+    code: "",
+    options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+    answer: "O(log n)",
+    explanation: "Σε κάθε βήμα η δυαδική αναζήτηση απορρίπτει περίπου το μισό του πίνακα. Επομένως έχει πολυπλοκότητα O(log n)."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω κώδικα;",
+    code: `let x = array[0];\nconsole.log(x);`,
+    options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+    answer: "O(1)",
+    explanation: "Η πρόσβαση σε ένα συγκεκριμένο στοιχείο πίνακα γίνεται σε σταθερό χρόνο. Δεν εξαρτάται από το n."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η χρονική πολυπλοκότητα του παρακάτω κώδικα;",
+    code: `for (let i = 1; i < n; i *= 2) {\n  console.log(i);\n}`,
+    options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+    answer: "O(log n)",
+    explanation: "Το i διπλασιάζεται σε κάθε επανάληψη. Χρειάζονται περίπου log₂(n) βήματα μέχρι να φτάσει το n."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+    code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}\n\nfor (let j = 0; j < n; j++) {\n  console.log(j);\n}`,
+    options: ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+    answer: "O(n)",
+    explanation: "Οι δύο ανεξάρτητοι βρόχοι εκτελούνται συνολικά 2n φορές, αλλά στη Big-O αγνοούμε σταθερούς συντελεστές. Άρα O(n)."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+    code: `for (let i = 0; i < n; i++) {\n  for (let j = 0; j < 10; j++) {\n    console.log(i, j);\n  }\n}`,
+    options: ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+    answer: "O(n)",
+    explanation: "Ο εσωτερικός βρόχος εκτελείται πάντα 10 φορές, δηλαδή σταθερό πλήθος. Συνολικά έχουμε 10n, που απλοποιείται σε O(n)."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η πολυπλοκότητα ενός απλού γραμμικού search σε μη ταξινομημένο πίνακα;",
+    code: "",
+    options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+    answer: "O(n)",
+    explanation: "Στη χειρότερη περίπτωση πρέπει να ελεγχθούν όλα τα στοιχεία του πίνακα. Άρα O(n)."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+    code: `for (let i = 0; i < n; i++) {\n  console.log(i);\n}\n\nfor (let j = 0; j < n; j++) {\n  for (let k = 0; k < n; k++) {\n    console.log(j, k);\n  }\n}`,
+    options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+    answer: "O(n²)",
+    explanation: "Ο πρώτος βρόχος είναι O(n), ενώ οι εμφωλευμένοι βρόχοι είναι O(n²). Κυριαρχεί το n², άρα O(n²)."
+  },
+  {
+    category: "complexity",
+    typeLabel: "Αναγνώριση πολυπλοκότητας",
+    question: "Ποια είναι η πολυπλοκότητα του παρακάτω κώδικα;",
+    code: `for (let i = n; i > 1; i = Math.floor(i / 2)) {\n  console.log(i);\n}`,
+    options: ["O(n)", "O(n²)", "O(log n)", "O(1)"],
+    answer: "O(log n)",
+    explanation: "Το i υποδιαιρείται δια 2 σε κάθε επανάληψη. Άρα ο αριθμός των επαναλήψεων είναι λογαριθμικός."
+  },
 
       {
         category: "dominant",
